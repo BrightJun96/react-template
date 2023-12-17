@@ -21,6 +21,7 @@ export default function App() {
   useEffect(() => {
     client.get('/cats').then((r) => {
       console.log('cats Response :', r);
+      console.log('cats Response Status:', r.status);
     });
   }, [isToken]);
   /**
