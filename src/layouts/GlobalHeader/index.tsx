@@ -1,9 +1,17 @@
-import { Link } from 'react-router-dom';
-import { SHeader, SHeaderLogo, SNav } from './styles';
+import useAuth from '@/hooks/useAuth';
+import { LogoutBtn } from '@/pages/LoginPage/styles';
 import { ROUTES } from '@/router';
-import { SITE_NAVIGATIONS } from './constants.ts';
+import { tokenAtom } from '@/store/login';
+import { useAtomValue } from 'jotai';
+import { Link } from 'react-router-dom';
+import { SHeader, SHeaderLogo } from './styles';
 
 export default function GlobalHeader() {
+  // 로그아웃
+  const { logout } = useAuth();
+  // 토큰 보유 여부
+  const isToken = useAtomValue(tokenAtom);
+
   return (
     <SHeader.Wrapper>
       <SHeader.LeftSide>
@@ -13,15 +21,7 @@ export default function GlobalHeader() {
           </Link>
         </SHeaderLogo>
       </SHeader.LeftSide>
-      <SHeader.RightSide>
-        <SNav.List>
-          {SITE_NAVIGATIONS.map((nav) => (
-            <SNav.Item>
-              <Link to={nav.to}>{nav.text}</Link>
-            </SNav.Item>
-          ))}
-        </SNav.List>
-      </SHeader.RightSide>
+      <SHeader.RightSide>{isToken && <LogoutBtn onClick={logout}>로그아웃</LogoutBtn>}</SHeader.RightSide>
     </SHeader.Wrapper>
   );
 }

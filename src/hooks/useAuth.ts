@@ -1,6 +1,7 @@
 import { client } from '@/api';
 import { tokenAtom } from '@/store/login';
 import { useSetAtom } from 'jotai';
+import { useCookies } from 'react-cookie';
 
 /**
  * @description
@@ -10,15 +11,14 @@ import { useSetAtom } from 'jotai';
 const useAuth = () => {
   // const JWT_EXPIRY_TIME = 24 * 3600 * 1000; // 만료 시간 (24시간 밀리 초로 표현)
 
+  const AUTH_COKKIE_KEY = 'refresh_token';
   const setIsToken = useSetAtom(tokenAtom);
+  const [cookies, setCookie, removeCookie] = useCookies([AUTH_COKKIE_KEY]);
 
   /**
    * @description
    * - 로그인 성공시 토큰 헤더에 심어주기
    * - 토큰은 로컬 변수에 저장
-   * @todo
-   * - 로그인 여부 전역 상태가 true로 해주는 로직(useAtom으로 구성)
-   * - 토큰 소유 여부 전역 상태가 true로 해주는 로직
    */
   function onLoginSuccess(response: { data: { accessToken: string } }) {
     const accessToken = response.data;
@@ -43,7 +43,19 @@ const useAuth = () => {
     // setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
   }
 
-  return { onLoginSuccess };
+  /**
+   * @description
+   * 로그아웃
+   * 토큰 보유 여부 => false 로 변경
+   * 쿠키(리프래시 토큰) 삭제
+   */
+  function logout() {
+    setIsToken(false);
+
+    removeCookie(AUTH_COKKIE_KEY);
+  }
+
+  return { onLoginSuccess, logout };
 };
 
 export default useAuth;

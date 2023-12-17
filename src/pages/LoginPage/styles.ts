@@ -38,10 +38,10 @@ export const Title = styled.h1`
   font-size: 22px;
 `;
 
-export const STokenBtn = styled.button`
+export const LogoutBtn = styled.button`
   width: 120px;
   height: 40px;
-  background-color: teal;
+  background-color: lightblue;
   color: white;
   border-radius: 2px;
 `;

@@ -73,7 +73,6 @@ const Login = () => {
         />
         <BlackBtn type="submit">로그인 버튼</BlackBtn>
       </LoginForm>
-      {/* <STokenBtn onClick={refresh}>엑세스 토큰 요청</STokenBtn> */}
     </LoginContainer>
   );
 };
