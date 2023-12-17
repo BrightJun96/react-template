@@ -1,9 +1,9 @@
-import { createBrowserRouter, Outlet } from 'react-router-dom';
-import ROUTES from './routes';
 import App from '@/App';
-import { Link } from 'react-router-dom';
-import ProductListPage from '@/pages/productPages/ProductListPage';
+import Login from '@/pages/LoginPage';
 import ProductDetailsPage from '@/pages/productPages/ProductDetailsPage';
+import ProductListPage from '@/pages/productPages/ProductListPage';
+import { createBrowserRouter, Link, Outlet } from 'react-router-dom';
+import ROUTES from './routes';
 
 // Router 예시입니다.
 const Router = createBrowserRouter([
@@ -43,6 +43,7 @@ const Router = createBrowserRouter([
           },
         ],
       },
+      { path: ROUTES.login.relativePath, element: <Login /> },
     ],
   },
 ]);

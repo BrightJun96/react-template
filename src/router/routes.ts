@@ -17,6 +17,10 @@ const ROUTES: Record<string, Route> = {
     fullPath: '/product/details',
     relativePath: 'details',
   },
+  login: {
+    fullPath: '/login',
+    relativePath: 'login',
+  },
 };
 
 export default ROUTES;
