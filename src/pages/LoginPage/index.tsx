@@ -6,6 +6,7 @@
  */
 
 import { ILoginInfo, useLoginMutation } from '@/api/auth';
+import LoadingSection from '@/components/Loading/Loading';
 import useQueryString from '@/hooks/useQueryString';
 import { tokenAtom } from '@/store/login';
 import { useAtomValue } from 'jotai';
@@ -86,6 +87,7 @@ const Login = () => {
           value={info.password}
         />
         <BlackBtn type="submit">로그인 버튼</BlackBtn>
+        <LoadingSection isLoading={true} isError={false} isEmpty={false} />
       </LoginForm>
     </LoginContainer>
   );
