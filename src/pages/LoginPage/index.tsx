@@ -6,6 +6,7 @@
  */
 
 import { ILoginInfo, useLoginMutation } from '@/api/auth';
+import useQueryString from '@/hooks/useQueryString';
 import { tokenAtom } from '@/store/login';
 import { useAtomValue } from 'jotai';
 import { useEffect, useState } from 'react';
@@ -15,10 +16,18 @@ import { BlackBtn, LoginContainer, LoginForm, SLoginInput, Title } from './style
 const Login = () => {
   const navigate = useNavigate();
 
+  const { qsChangeHandler, getQueryString } = useQueryString();
+
   const [info, setInfo] = useState<ILoginInfo>({
     userName: '',
     password: '',
   });
+
+  const userName = getQueryString('userName', '');
+  const password = getQueryString('password', '');
+
+  console.log('QS userName :', userName);
+  console.log('QS password :', password);
 
   // 로그인 API
   const { mutate: login } = useLoginMutation();
@@ -31,6 +40,11 @@ const Login = () => {
     const { name, value } = e.target;
 
     setInfo((p) => ({ ...p, [name]: value }));
+
+    qsChangeHandler({
+      text: value,
+      name,
+    });
   }
 
   // 로그인
